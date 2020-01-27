@@ -1,0 +1,27 @@
+import pandas as pd 
+import numpy as np
+
+rawdata = data = pd.read_csv("Test1/1_1.csv") 
+data = pd.read_csv("Test1/1_1.csv",header=0, index_col=0, squeeze=True) 
+
+data.plot(linewidth=0.5, title = "data")
+
+rm_data = data.rolling(window=4).mean()
+rm_data.plot(linewidth=0.5, title = "rolling mean data")
+
+data_diff = data.diff()
+data_diff.plot(linewidth=0.5, title = "data diff")
+
+rm_diff = data_diff.rolling(window=4).mean()
+rm_diff.plot(linewidth=0.5, title = "rolling mean data diff")
+
+data_diff2 = data_diff.diff()
+data_diff2.plot(linewidth=0.5)
+
+impact = data.iloc[305:355]
+for i, j in impact.iteritems(): 
+    if i != "time":
+        snsr = j
+        snsr_a = np.array(j).transpose()
+        area = np.trapz(snsr_a)
+        print(i,"area",area)
