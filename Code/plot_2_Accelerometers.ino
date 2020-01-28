@@ -19,7 +19,7 @@ extern "C"
 //}
 
 #define TCAADDR  0x70
-#define TCAADDR  0x71
+//#define TCAADDR  0x71
 
 Adafruit_LIS3DH lis1 = Adafruit_LIS3DH(); ; //Accelerometer 1
 Adafruit_LIS3DH lis2 = Adafruit_LIS3DH(); ; //Accelerometer 2
