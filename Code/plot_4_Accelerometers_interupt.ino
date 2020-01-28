@@ -1,5 +1,5 @@
 /*
-    Edited by Best 16:09 27/01/63
+    Edited by Best 13:53 28/01/63
 */
 
 
@@ -24,8 +24,8 @@ extern "C"
 //}
 
 #define TCAADDR  0x70
-#define TCAADDR  0x71
-#define CLICKTHRESHHOLD 40
+#define TCAADDR1  0x71
+#define CLICKTHRESHHOLD 60
 
 Adafruit_LIS3DH lis1 = Adafruit_LIS3DH(); ; //Accelerometer 1
 Adafruit_LIS3DH lis2 = Adafruit_LIS3DH(); ; //Accelerometer 2
@@ -127,6 +127,7 @@ void setup(void)
 }
 
 float sen1, sen2, sen3, sen4;
+uint8_t click;
 
 
 void loop(void)
@@ -142,11 +143,8 @@ void loop(void)
   tcaselect(0);          /* Get a new sensor event */
 
   lis1.read();      // get X Y and Z data at once
-  uint8_t click = lis1.getClick();
-  if (click == 0) return;
-  if (! (click & 0x30)) return;
-  Serial.print("Click detected (0x"); Serial.print(click, HEX); Serial.print("): ");
-  if (click & 0x10) Serial.print(" single click");
+  click = lis1.getClick();
+  if (click & 0x10) Serial.print("1,1 single click\n");
   // Then print out the raw data
   //Serial.print("X:  "); //Serial.print(lis1.x);
   //Serial.print("  \tY:  "); //Serial.print(lis1.y);
@@ -165,11 +163,8 @@ void loop(void)
 
   tcaselect(1);
   lis2.read();      // get X Y and Z data at once
-  uint8_t click = lis2.getClick();
-  if (click == 0) return;
-  if (! (click & 0x30)) return;
-  Serial.print("Click detected (0x"); Serial.print(click, HEX); Serial.print("): ");
-  if (click & 0x10) Serial.print(" single click");
+  click = lis2.getClick();
+  if (click & 0x10) Serial.print("1,2 single click\n");
   // Then print out the raw data
   //Serial.print("X:  "); //Serial.print(lis2.x);
   //Serial.print("  \tY:  "); //Serial.print(lis2.y);
@@ -187,11 +182,8 @@ void loop(void)
 
   tcaselect(2);
   lis3.read();      // get X Y and Z data at once
-  uint8_t click = lis3.getClick();
-  if (click == 0) return;
-  if (! (click & 0x30)) return;
-  Serial.print("Click detected (0x"); Serial.print(click, HEX); Serial.print("): ");
-  if (click & 0x10) Serial.print(" single click");
+  click = lis3.getClick();
+  if (click & 0x10) Serial.print("2,1 single click\n");
   // Then print out the raw data
   //Serial.print("X:  "); //Serial.print(lis2.x);
   //Serial.print("  \tY:  "); //Serial.print(lis2.y);
@@ -210,11 +202,8 @@ void loop(void)
 
   tcaselect(3);
   lis4.read();      // get X Y and Z data at once
-  uint8_t click = lis4.getClick();
-  if (click == 0) return;
-  if (! (click & 0x30)) return;
-  Serial.print("Click detected (0x"); Serial.print(click, HEX); Serial.print("): ");
-  if (click & 0x10) Serial.print(" single click");
+  click = lis4.getClick();
+  if (click & 0x10) Serial.print("2,2 single click\n");
   // Then print out the raw data
   //Serial.print("X:  "); //Serial.print(lis4.x);
   //Serial.print("  \tY:  "); //Serial.print(lis4.y);
