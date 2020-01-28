@@ -124,7 +124,6 @@ void setup(void)
   Serial.println("G");
   
   
-  tcaselect(4);
   tcaselect1(0);
   while (!Serial) delay(10);     // will pause Zero, Leonardo, etc until serial console opens
   Serial.println("LIS3DH_0,0 test!");
@@ -223,7 +222,6 @@ void loop(void)
 
 
 
-  tcaselect(4);
   tcaselect1(0);
   lis5.read();      // get X Y and Z data at once
   // Then print out the raw data
