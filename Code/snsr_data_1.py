@@ -37,7 +37,7 @@ d = {name: snsr.loc[snsr.interupt == impact_name.index(name)+1] for name in impa
 
 with open(csvfile, 'w', newline ='') as f:
     writer = csv.writer(f)
-    writer.writerow(['impact_no','snsr_no','area','area_abs','first','second','first_abs','second_abs','first_diff','second_diff','first_diff_abs','second_diff_abs'])
+    writer.writerow(['impact_no','snsr_no','area','area_abs','first','second','first_abs','second_abs','first_diff','second_diff','first_diff_abs','second_diff_abs','ratio'])
 for name in impact_name:
     df = d[name].drop(['interupt'], axis=1)
     df_diff = df.diff().fillna(0)
@@ -73,4 +73,4 @@ for name in impact_name:
 
         with open(csvfile, 'a', newline ='') as f:
             writer = csv.writer(f)
-            writer.writerow([name, colname, area, area_abs, first, second, first_abs, second_abs, first_diff, second_diff ,first_diff_abs,second_diff_abs])
+            writer.writerow([name, colname, area, area_abs, first, second, first_abs, second_abs, first_diff, second_diff, first_diff_abs, second_diff_abs, second_diff_abs/first_diff_abs])
