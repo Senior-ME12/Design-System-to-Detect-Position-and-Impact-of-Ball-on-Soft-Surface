@@ -81,5 +81,5 @@ for name in impact_name:
 for i in range(len(predict)):
     if predict[i] == 'snsr_11':
         accuracy += 1
-print('Accuracy of closest sensor prediction = ' + str(accuracy/len(predict)))
-    
+
+print('Accuracy of closest sensor prediction = ' + str((accuracy/len(predict)) * 100) + '%')
