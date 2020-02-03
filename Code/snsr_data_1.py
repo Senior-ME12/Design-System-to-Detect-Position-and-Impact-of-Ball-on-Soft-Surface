@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import csv
 
-filelocation = 'E:/Boonsita/senior project/secondtest/2_1.csv'
+filelocation = 'E:/Work/Senior Project/Data/Second_test/2_1.csv'
 csvfile = '2_1-summary.csv'
 rawdata = pd.read_csv(filelocation) 
 data = pd.read_csv(filelocation, header=0, index_col=0, squeeze=True) 
@@ -50,7 +50,8 @@ for name in impact_name:
     plt.legend(df.columns, loc='upper center', bbox_to_anchor=(0.5, -0.1), ncol=4)
     figManager = plt.get_current_fig_manager()
     figManager.window.showMaximized()
-
+    fig.savefig('2_1 ' + str(name) + '.png')
+    
     for colname, j in df.iteritems(): 
 
         snsr_a = np.array(j).transpose()
