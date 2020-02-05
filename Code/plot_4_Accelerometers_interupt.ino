@@ -1,5 +1,5 @@
 /*
-    Edited by Best 13:53 28/01/63
+    Edited by Best 16:09 27/01/63
 */
 
 
@@ -32,12 +32,6 @@ Adafruit_LIS3DH lis2 = Adafruit_LIS3DH(); ; //Accelerometer 2
 Adafruit_LIS3DH lis3 ; //Accelerometer 3
 Adafruit_LIS3DH lis4 ; //Accelerometer 4
 
-String time;
-long day = 86400000; // 86400000 milliseconds in a day
-long hour = 3600000; // 3600000 milliseconds in an hour
-long minute = 60000; // 60000 milliseconds in a minute
-float second =  1000; // 1000 milliseconds in a second
-
 void tcaselect(uint8_t i) {
   if (i > 7) return;
 
@@ -60,91 +54,92 @@ void setup(void)
 
   tcaselect(0);    /* Display some basic information on this sensor */
   while (!Serial) delay(10);     // will pause Zero, Leonardo, etc until serial console opens
-  Serial.println("LIS3DH_1,1 test!");
+  //Serial.println("LIS3DH_1,1 test!");
   if (! lis1.begin(0x18)) {   // change this to 0x19 for alternative i2c address
     Serial.println("Couldnt start");
     while (1) yield();
   }
-  Serial.println("LIS3DH_1,1 found!");
+  //Serial.println("LIS3DH_1,1 found!");
 
   lis1.setRange(LIS3DH_RANGE_16_G);   // 2, 4, 8 or 16 G!
 
-  Serial.print("Range = "); Serial.print(2 << lis1.getRange());
-  Serial.println("G");
+  //Serial.print("Range = "); Serial.print(2 << lis1.getRange());
+  //Serial.println("G");
   lis1.setClick(1, CLICKTHRESHHOLD);
 
 
 
   tcaselect(1);
   while (!Serial) delay(10);     // will pause Zero, Leonardo, etc until serial console opens
-  Serial.println("LIS3DH_1,2 test!");
+  //Serial.println("LIS3DH_1,2 test!");
   if (! lis2.begin(0x18)) {   // change this to 0x19 for alternative i2c address
     Serial.println("Couldnt start");
     while (1) yield();
   }
-  Serial.println("LIS3DH_1,2 found!");
+  //Serial.println("LIS3DH_1,2 found!");
 
   lis2.setRange(LIS3DH_RANGE_16_G);   // 2, 4, 8 or 16 G!
 
-  Serial.print("Range = "); Serial.print(2 << lis2.getRange());
-  Serial.println("G");
+  //Serial.print("Range = "); Serial.print(2 << lis2.getRange());
+  //Serial.println("G");
   lis2.setClick(1, CLICKTHRESHHOLD);
 
 
 
   tcaselect(2);
   while (!Serial) delay(10);     // will pause Zero, Leonardo, etc until serial console opens
-  Serial.println("LIS3DH_2,1 test!");
+  //Serial.println("LIS3DH_2,1 test!");
   if (! lis3.begin(0x18)) {   // change this to 0x19 for alternative i2c address
     Serial.println("Couldnt start");
     while (1) yield();
   }
-  Serial.println("LIS3DH_2,1 found!");
+  //Serial.println("LIS3DH_2,1 found!");
 
   lis3.setRange(LIS3DH_RANGE_16_G);   // 2, 4, 8 or 16 G!
 
-  Serial.print("Range = "); Serial.print(2 << lis3.getRange());
-  Serial.println("G");
+  //Serial.print("Range = "); Serial.print(2 << lis3.getRange());
+  //Serial.println("G");
   lis3.setClick(1, CLICKTHRESHHOLD);
 
 
 
   tcaselect(3);
   while (!Serial) delay(10);     // will pause Zero, Leonardo, etc until serial console opens
-  Serial.println("LIS3DH_2,2 test!");
+  //Serial.println("LIS3DH_2,2 test!");
   if (! lis4.begin(0x18)) {   // change this to 0x19 for alternative i2c address
     Serial.println("Couldnt start");
     while (1) yield();
   }
-  Serial.println("LIS3DH_2,2 found!");
+  //Serial.println("LIS3DH_2,2 found!");
 
   lis4.setRange(LIS3DH_RANGE_16_G);   // 2, 4, 8 or 16 G!
 
-  Serial.print("Range = "); Serial.print(2 << lis4.getRange());
-  Serial.println("G");
+  //Serial.print("Range = "); Serial.print(2 << lis4.getRange());
+  //Serial.println("G");
   lis4.setClick(1, CLICKTHRESHHOLD);
 
 }
 
 float sen1, sen2, sen3, sen4;
+uint8_t inter11, inter12, inter21, inter22;
 uint8_t click;
 
 
 void loop(void)
 {
-
+  inter = 0;
   long tstamp = millis();
-  int days = tstamp / day ;                                //number of days
-  int hours = (tstamp % day) / hour;                       //the remainder from days division (in milliseconds) divided by hours, this gives the full hours
-  int minutes = ((tstamp % day) % hour) / minute ;         //and so on...
-  float seconds = (((tstamp % day) % hour) %  minute) / second ;
-  time = String(String(days) + "," + String(hours) + ":" + String(minutes) + ":" + String(seconds));
 
   tcaselect(0);          /* Get a new sensor event */
 
   lis1.read();      // get X Y and Z data at once
   click = lis1.getClick();
-  if (click & 0x10) Serial.print("1,1 single click\n");
+  if (click & 0x10) {
+    inter = 1;
+  }
+  else {
+    inter = 0;
+  }
   // Then print out the raw data
   //Serial.print("X:  "); //Serial.print(lis1.x);
   //Serial.print("  \tY:  "); //Serial.print(lis1.y);
@@ -164,7 +159,12 @@ void loop(void)
   tcaselect(1);
   lis2.read();      // get X Y and Z data at once
   click = lis2.getClick();
-  if (click & 0x10) Serial.print("1,2 single click\n");
+  if (click & 0x10) {
+    inter = 1;
+  }
+  else {
+    inter = 0;
+  }
   // Then print out the raw data
   //Serial.print("X:  "); //Serial.print(lis2.x);
   //Serial.print("  \tY:  "); //Serial.print(lis2.y);
@@ -183,7 +183,12 @@ void loop(void)
   tcaselect(2);
   lis3.read();      // get X Y and Z data at once
   click = lis3.getClick();
-  if (click & 0x10) Serial.print("2,1 single click\n");
+  if (click & 0x10) {
+    inter = 1;
+  }
+  else {
+    inter = 0;
+  }
   // Then print out the raw data
   //Serial.print("X:  "); //Serial.print(lis2.x);
   //Serial.print("  \tY:  "); //Serial.print(lis2.y);
@@ -203,7 +208,12 @@ void loop(void)
   tcaselect(3);
   lis4.read();      // get X Y and Z data at once
   click = lis4.getClick();
-  if (click & 0x10) Serial.print("2,2 single click\n");
+  if (click & 0x10) {
+    inter = 1;
+  }
+  else {
+    inter = 0;
+  }
   // Then print out the raw data
   //Serial.print("X:  "); //Serial.print(lis4.x);
   //Serial.print("  \tY:  "); //Serial.print(lis4.y);
@@ -237,7 +247,7 @@ void loop(void)
   //Serial.print(sen4);
   //Serial.println(" m/s^2 ");
   //sen4 = random(8,11);
-  Serial.println(String(time) + "," + String(sen1) + "," + String(sen2) + "," + String(sen3) + "," + String(sen4));
+  Serial.println(String(tstamp) + "," + String(sen1) + "," + String(sen2) + "," + String(sen3) + "," + String(sen4) + "," + String(inter));
 
   delay(20);
 }
