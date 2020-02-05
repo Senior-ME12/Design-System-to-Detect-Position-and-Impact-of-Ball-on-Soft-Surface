@@ -8,11 +8,11 @@ import matplotlib.animation as animation
 #dt.microsecond
 import csv
 
-ser = serial.Serial('COM13', 115200)
+ser = serial.Serial('COM12', 115200)
 
-with open('mycvs.csv', 'w', newline ='') as f:
+with open('middle.csv', 'w', newline ='') as f:
     writer = csv.writer(f)
-    writer.writerow(['day','time','snsr_11','snsr_12','snsr_21','snsr_22'])
+    writer.writerow(['time','snsr_11','snsr_12','snsr_21','snsr_22','int'])
     
 dummy = np.zeros((2,2))
 fig, ax = plt.subplots()
@@ -26,10 +26,10 @@ def init():
 def animate(i):
     s = str(ser.readline(),'utf-8')
     st = s.rstrip().split(',')
-    with open('mycvs.csv', 'a', newline ='') as f:
+    with open('middle.csv', 'a', newline ='') as f:
         writer = csv.writer(f)
         writer.writerow(st)
-    lis = [float(x) for x in st[2:]]
+    lis = [float(x) for x in st[1:5]]
     a = np.array(lis).reshape(2,2)
     line.set_array(a)
     #line.text(0,-0.6,s)
