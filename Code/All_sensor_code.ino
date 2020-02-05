@@ -28,12 +28,6 @@ Adafruit_LIS3DH lis14; //Accelerometer 14
 Adafruit_LIS3DH lis15; //Accelerometer 15
 Adafruit_LIS3DH lis16; //Accelerometer 16
 
-//Set board Time
-String time;
-long day = 86400000; // 86400000 milliseconds in a day
-long hour = 3600000; // 3600000 milliseconds in an hour
-long minute = 60000; // 60000 milliseconds in a minute
-float second =  1000; // 1000 milliseconds in a second
 
 void tcaselect(uint8_t sensor) { 
   unsigned int mask = 1 << sensor;
@@ -336,12 +330,6 @@ float sen1,sen2,sen3,sen4,sen5,sen6,sen7,sen8,sen9,sen10,sen11,sen12,sen13,sen14
 
 void loop() 
 {
-  long tstamp = millis();
-  int days = tstamp / day ;                                //number of days
-  int hours = (tstamp % day) / hour;                       //the remainder from days division (in milliseconds) divided by hours, this gives the full hours
-  int minutes = ((tstamp % day) % hour) / minute ;         //and so on...
-  float seconds = (((tstamp % day) % hour) %  minute)/ second ;
-  time = String(String(days)+","+String(hours)+":"+String(minutes)+":"+String(seconds));
   inter = 0;
   long tstamp = millis();
   
