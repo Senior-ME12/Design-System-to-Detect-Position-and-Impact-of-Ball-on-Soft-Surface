@@ -291,7 +291,7 @@ void setup() {
   lis14.setClick(1, CLICKTHRESHHOLD);
   
   
-  //*15TH SENSOR
+  *15TH SENSOR
   tcaselect1(6);  
   while (!Serial) delay(10);     // will pause Zero, Leonardo, etc until serial console opens
   Serial.println("LIS3DH_15 test!");
@@ -327,7 +327,8 @@ void setup() {
 }
 
 float sen1,sen2,sen3,sen4,sen5,sen6,sen7,sen8,sen9,sen10,sen11,sen12,sen13,sen14,sen15,sen16;
-
+uint8_t inter;
+uint8_t click;
 void loop() 
 {
   inter = 0;
@@ -343,10 +344,6 @@ void loop()
   else {
     inter = 0;
   }
-  // Then print out the raw data
-  //Serial.print("X:  "); //Serial.print(lis1.x); 
-  //Serial.print("  \tY:  "); //Serial.print(lis1.y); 
-  //Serial.print("  \tZ:  "); //Serial.print(lis1.z); 
   sensors_event_t event1; 
   lis1.getEvent(&event1);
   sen1 = event1.acceleration.z;
@@ -360,10 +357,6 @@ void loop()
   else {
     inter = 0;
   }
-  // Then print out the raw data
-  //Serial.print("X:  "); //Serial.print(lis2.x); 
-  //Serial.print("  \tY:  "); //Serial.print(lis2.y); 
-  //Serial.print("  \tZ:  "); //Serial.print(lis2.z); 
   sensors_event_t event2; 
   lis2.getEvent(&event2);
   sen2 = event2.acceleration.z;
@@ -378,10 +371,6 @@ void loop()
   else {
     inter = 0;
   }
-  // Then print out the raw data
-  //Serial.print("X:  "); //Serial.print(lis2.x); 
-  //Serial.print("  \tY:  "); //Serial.print(lis2.y); 
-  //Serial.print("  \tZ:  "); //Serial.print(lis2.z); 
   sensors_event_t event3; 
   lis3.getEvent(&event3);
   sen3 = event3.acceleration.z;
@@ -396,10 +385,6 @@ void loop()
   else {
     inter = 0;
   }
-  // Then print out the raw data
-  //Serial.print("X:  "); //Serial.print(lis4.x); 
-  //Serial.print("  \tY:  "); //Serial.print(lis4.y); 
-  //Serial.print("  \tZ:  "); //Serial.print(lis4.z); 
   sensors_event_t event4; 
   lis4.getEvent(&event4);
   sen4 = event4.acceleration.z;
@@ -414,10 +399,6 @@ void loop()
   else {
     inter = 0;
   }
-  // Then print out the raw data
-  //Serial.print("X:  "); //Serial.print(lis4.x); 
-  //Serial.print("  \tY:  "); //Serial.print(lis4.y); 
-  //Serial.print("  \tZ:  "); //Serial.print(lis4.z); 
   sensors_event_t event5; 
   lis5.getEvent(&event5);
   sen5 = event5.acceleration.z;
@@ -431,10 +412,6 @@ void loop()
   else {
     inter = 0;
   }
-  // Then print out the raw data
-  //Serial.print("X:  "); //Serial.print(lis4.x); 
-  //Serial.print("  \tY:  "); //Serial.print(lis4.y); 
-  //Serial.print("  \tZ:  "); //Serial.print(lis4.z); 
   sensors_event_t event6; 
   lis6.getEvent(&event6);
   sen6 = event6.acceleration.z;
@@ -448,10 +425,6 @@ void loop()
   else {
     inter = 0;
   }
-  // Then print out the raw data
-  //Serial.print("X:  "); //Serial.print(lis4.x); 
-  //Serial.print("  \tY:  "); //Serial.print(lis4.y); 
-  //Serial.print("  \tZ:  "); //Serial.print(lis4.z); 
   sensors_event_t event7; 
   lis7.getEvent(&event7);
   sen7 = event7.acceleration.z;
@@ -465,10 +438,6 @@ void loop()
   else {
     inter = 0;
   }
-  // Then print out the raw data
-  //Serial.print("X:  "); //Serial.print(lis4.x); 
-  //Serial.print("  \tY:  "); //Serial.print(lis4.y); 
-  //Serial.print("  \tZ:  "); //Serial.print(lis4.z); 
   sensors_event_t event8; 
   lis8.getEvent(&event8);
   sen8 = event8.acceleration.z;
@@ -490,10 +459,6 @@ void loop()
   else {
     inter = 0;
   }
-  // Then print out the raw data
-  //Serial.print("X:  "); //Serial.print(lis5.x); 
-  //Serial.print("  \tY:  "); //Serial.print(lis5.y); 
-  //Serial.print("  \tZ:  "); //Serial.print(lis5.z); 
   sensors_event_t event9; 
   lis9.getEvent(&event9);
   sen9 = event9.acceleration.z;
@@ -508,10 +473,6 @@ void loop()
   else {
     inter = 0;
   }
-  // Then print out the raw data
-  //Serial.print("X:  "); //Serial.print(lis5.x); 
-  //Serial.print("  \tY:  "); //Serial.print(lis5.y); 
-  //Serial.print("  \tZ:  "); //Serial.print(lis5.z); 
   sensors_event_t event10; 
   lis10.getEvent(&event10);
   sen10 = event10.acceleration.z;
@@ -526,10 +487,6 @@ void loop()
   else {
     inter = 0;
   }
-  // Then print out the raw data
-  //Serial.print("X:  "); //Serial.print(lis5.x); 
-  //Serial.print("  \tY:  "); //Serial.print(lis5.y); 
-  //Serial.print("  \tZ:  "); //Serial.print(lis5.z); 
   sensors_event_t event11; 
   lis11.getEvent(&event11);
   sen11 = event11.acceleration.z;
@@ -544,13 +501,9 @@ void loop()
   else {
     inter = 0;
   }
-  // Then print out the raw data
-  //Serial.print("X:  "); //Serial.print(lis5.x); 
-  //Serial.print("  \tY:  "); //Serial.print(lis5.y); 
-  //Serial.print("  \tZ:  "); //Serial.print(lis5.z); 
   sensors_event_t event12; 
   lis12.getEvent(&event12);
-  sen12 = event11.acceleration.z;
+  sen12 = event12.acceleration.z;
 
   //*SENSOR-13TH
   tcaselect1(4);
@@ -562,10 +515,6 @@ void loop()
   else {
     inter = 0;
   }
-  // Then print out the raw data
-  //Serial.print("X:  "); //Serial.print(lis5.x); 
-  //Serial.print("  \tY:  "); //Serial.print(lis5.y); 
-  //Serial.print("  \tZ:  "); //Serial.print(lis5.z); 
   sensors_event_t event13; 
   lis13.getEvent(&event13);
   sen13 = event13.acceleration.z;
@@ -580,10 +529,6 @@ void loop()
   else {
     inter = 0;
   }
-  // Then print out the raw data
-  //Serial.print("X:  "); //Serial.print(lis5.x); 
-  //Serial.print("  \tY:  "); //Serial.print(lis5.y); 
-  //Serial.print("  \tZ:  "); //Serial.print(lis5.z); 
   sensors_event_t event14; 
   lis14.getEvent(&event14);
   sen14 = event14.acceleration.z;
@@ -598,10 +543,6 @@ void loop()
   else {
     inter = 0;
   }
-  // Then print out the raw data
-  //Serial.print("X:  "); //Serial.print(lis5.x); 
-  //Serial.print("  \tY:  "); //Serial.print(lis5.y); 
-  //Serial.print("  \tZ:  "); //Serial.print(lis5.z); 
   sensors_event_t event15; 
   lis15.getEvent(&event15);
   sen15 = event15.acceleration.z;
@@ -616,15 +557,11 @@ void loop()
   else {
     inter = 0;
   }
-  // Then print out the raw data
-  //Serial.print("X:  "); //Serial.print(lis5.x); 
-  //Serial.print("  \tY:  "); //Serial.print(lis5.y); 
-  //Serial.print("  \tZ:  "); //Serial.print(lis5.z); 
   sensors_event_t event16; 
   lis16.getEvent(&event16);
   sen16 = event16.acceleration.z;
 
-  Serial.println(String(time)+","+String(sen1)+","+String(sen2)+","+String(sen3)+","+String(sen4)+","+String(sen5)+","+String(sen6)+","+String(sen7)+","+String(sen8)+","+String(sen9)+","+String(sen10)+","+String(sen11)+","+String(sen12)+","+String(sen13)+","+String(sen14)+","+String(sen15)+","+String(sen16)"," + String(inter));
+  Serial.println(String(tstamp)+","+String(sen1)+","+String(sen2)+","+String(sen3)+","+String(sen4)+","+String(sen5)+","+String(sen6)+","+String(sen7)+","+String(sen8)+","+String(sen9)+","+String(sen10)+","+String(sen11)+","+String(sen12)+","+String(sen13)+","+String(sen14)+","+String(sen15)+","+String(sen16)+"," + String(inter));
   delay(20);
 
 }
