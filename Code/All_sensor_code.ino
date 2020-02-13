@@ -56,7 +56,7 @@ void setup() {
   Wire.begin();  //enabling the I2C protocol through the Wire.begin()
 
   //FIRST SENSOR**                
-  tcaselect(0);    /* Display some basic information on this sensor */
+  tcaselect(0);     
   while (!Serial) delay(10);     // will pause Zero, Leonardo, etc until serial console opens
   Serial.println("LIS3DH_1 test!");
   if (! lis1.begin(0x18)) {   // change this to 0x19 for alternative i2c address
@@ -291,7 +291,7 @@ void setup() {
   lis14.setClick(1, CLICKTHRESHHOLD);
   
   
-  *15TH SENSOR
+  //*15TH SENSOR
   tcaselect1(6);  
   while (!Serial) delay(10);     // will pause Zero, Leonardo, etc until serial console opens
   Serial.println("LIS3DH_15 test!");
@@ -562,6 +562,7 @@ void loop()
   sen16 = event16.acceleration.z;
 
   Serial.println(String(tstamp)+","+String(sen1)+","+String(sen2)+","+String(sen3)+","+String(sen4)+","+String(sen5)+","+String(sen6)+","+String(sen7)+","+String(sen8)+","+String(sen9)+","+String(sen10)+","+String(sen11)+","+String(sen12)+","+String(sen13)+","+String(sen14)+","+String(sen15)+","+String(sen16)+"," + String(inter));
+  //Serial.println(String(sen1)+","+String(sen2)+","+String(sen3)+","+String(sen4)+","+String(sen5)+","+String(sen6)+","+String(sen7)+","+String(sen8)+","+String(sen9)+","+String(sen10)+","+String(sen11)+","+String(sen12)+","+String(sen13)+","+String(sen14)+","+String(sen15)+","+String(sen16)+"," + String(inter));
   delay(20);
 
 }
