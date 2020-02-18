@@ -31,22 +31,22 @@ Adafruit_LIS3DH lis16; //Accelerometer 16
 
 void tcaselect(uint8_t sensor) { 
   unsigned int mask = 1 << sensor;
-  Wire.beginTransmission(TCAADDR);
+  Wire.beginTransmission(TCAADDR1);
   Wire.write(lowByte(mask));
   Wire.endTransmission();
-  Wire.beginTransmission(TCAADDR1);
+  Wire.beginTransmission(TCAADDR);
   Wire.write(highByte(mask));
   Wire.endTransmission();
   delay(1);
 }
 
-void tcaselect1(uint8_t sensor) { 
-  unsigned int mask = 1 << sensor;
+void tcaselect1(uint8_t sensor1) { 
+  unsigned int mask1 = 1 << sensor1;
   Wire.beginTransmission(TCAADDR);
-  Wire.write(lowByte(mask));
+  Wire.write(lowByte(mask1));
   Wire.endTransmission();
   Wire.beginTransmission(TCAADDR1);
-  Wire.write(highByte(mask));
+  Wire.write(highByte(mask1));
   Wire.endTransmission();
   delay(1);
 }
@@ -70,7 +70,7 @@ void setup() {
   Serial.print("Range = "); Serial.print(2 << lis1.getRange());  
   Serial.println("G");
   lis1.setClick(1, CLICKTHRESHHOLD);
-
+  
   //SECOND SENSOR
   tcaselect(1);
   while (!Serial) delay(10);     // will pause Zero, Leonardo, etc until serial console opens
@@ -323,7 +323,10 @@ void setup() {
   Serial.print("Range = "); Serial.print(2 << lis16.getRange());  
   Serial.println("G");
   lis16.setClick(1, CLICKTHRESHHOLD);
-
+  Wire.beginTransmission(TCAADDR1);
+  Wire.write(0);
+  Wire.endTransmission();
+  
 }
 
 float sen1,sen2,sen3,sen4,sen5,sen6,sen7,sen8,sen9,sen10,sen11,sen12,sen13,sen14,sen15,sen16;
@@ -334,8 +337,8 @@ void loop()
   inter = 0;
   long tstamp = millis();
   
-  //SENSOR-FIRST
-  tcaselect(0);          /* Get a new sensor event */
+  //*SENSOR-FIRST
+  tcaselect(0);          // Get a new sensor event
   lis1.read();      // get X Y and Z data at once
   click = lis1.getClick();
   if (click & 0x10) {
@@ -441,7 +444,7 @@ void loop()
   sensors_event_t event8; 
   lis8.getEvent(&event8);
   sen8 = event8.acceleration.z;
-
+  
 
   
   Wire.beginTransmission(TCAADDR);
@@ -560,9 +563,14 @@ void loop()
   sensors_event_t event16; 
   lis16.getEvent(&event16);
   sen16 = event16.acceleration.z;
-
-  Serial.println(String(tstamp)+","+String(sen1)+","+String(sen2)+","+String(sen3)+","+String(sen4)+","+String(sen5)+","+String(sen6)+","+String(sen7)+","+String(sen8)+","+String(sen9)+","+String(sen10)+","+String(sen11)+","+String(sen12)+","+String(sen13)+","+String(sen14)+","+String(sen15)+","+String(sen16)+"," + String(inter));
-  //Serial.println(String(sen1)+","+String(sen2)+","+String(sen3)+","+String(sen4)+","+String(sen5)+","+String(sen6)+","+String(sen7)+","+String(sen8)+","+String(sen9)+","+String(sen10)+","+String(sen11)+","+String(sen12)+","+String(sen13)+","+String(sen14)+","+String(sen15)+","+String(sen16)+"," + String(inter));
+  Wire.beginTransmission(TCAADDR1);
+  Wire.write(0);
+  Wire.endTransmission();
+  
+  //Serial.println(String(tstamp)+","+String(sen1)+","+String(sen2)+","+String(sen3)+","+String(sen4)+","+String(sen5)+","+String(sen6)+","+String(sen7)+","+String(sen8)+","+String(sen9)+","+String(sen10)+","+String(sen11)+","+String(sen12)+","+String(sen13)+","+String(sen14)+","+String(sen15)+","+String(sen16)+"," + String(inter));
+  Serial.println(String(sen1)+","+String(sen2)+","+String(sen3)+","+String(sen4)+","+String(sen5)+","+String(sen6)+","+String(sen7)+","+String(sen8)+","+String(sen9)+","+String(sen10)+","+String(sen11)+","+String(sen12)+","+String(sen13)+","+String(sen14)+","+String(sen15)+","+String(sen16)+"," + String(inter));
+  //Serial.println(String(sen1)+","+String(sen2)+","+String(sen3)+","+String(sen4)+","+String(sen9)+","+String(sen10)+","+String(sen11)+","+String(sen12));
+  //Serial.println(String(sen9)+","+String(sen10)+","+String(sen11)+","+String(sen12)+String(sen13)+","+String(sen14)+","+String(sen15)+","+String(sen16));
   delay(20);
 
 }
