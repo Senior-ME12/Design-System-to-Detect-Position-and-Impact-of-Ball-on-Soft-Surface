@@ -31,22 +31,24 @@ Adafruit_LIS3DH lis16; //Accelerometer 16
 
 void tcaselect(uint8_t sensor) { 
   unsigned int mask = 1 << sensor;
-  Wire.beginTransmission(TCAADDR1);
-  Wire.write(lowByte(mask));
-  Wire.endTransmission();
+  //Wire.beginTransmission(TCAADDR1);
+  //Wire.write(lowByte(mask));
+  //Wire.endTransmission();
   Wire.beginTransmission(TCAADDR);
-  Wire.write(highByte(mask));
+  //Wire.write(highByte(mask));
+  Wire.write(mask);
   Wire.endTransmission();
   delay(1);
 }
 
 void tcaselect1(uint8_t sensor1) { 
   unsigned int mask1 = 1 << sensor1;
-  Wire.beginTransmission(TCAADDR);
-  Wire.write(lowByte(mask1));
-  Wire.endTransmission();
+  //Wire.beginTransmission(TCAADDR);
+  //Wire.write(lowByte(mask1));
+  //Wire.endTransmission();
   Wire.beginTransmission(TCAADDR1);
-  Wire.write(highByte(mask1));
+  //Wire.write(highByte(mask1));
+  Wire.write(mask1);
   Wire.endTransmission();
   delay(1);
 }
@@ -323,6 +325,7 @@ void setup() {
   Serial.print("Range = "); Serial.print(2 << lis16.getRange());  
   Serial.println("G");
   lis16.setClick(1, CLICKTHRESHHOLD);
+  
   Wire.beginTransmission(TCAADDR1);
   Wire.write(0);
   Wire.endTransmission();
