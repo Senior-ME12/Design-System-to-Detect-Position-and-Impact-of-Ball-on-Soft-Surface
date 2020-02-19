@@ -31,9 +31,9 @@ Adafruit_LIS3DH lis16; //Accelerometer 16
 
 void tcaselect(uint8_t sensor) { 
   unsigned int mask = 1 << sensor;
-  //Wire.beginTransmission(TCAADDR1);
-  //Wire.write(lowByte(mask));
-  //Wire.endTransmission();
+  Wire.beginTransmission(TCAADDR1);
+  Wire.write(lowByte(mask));
+  Wire.endTransmission();
   Wire.beginTransmission(TCAADDR);
   //Wire.write(highByte(mask));
   Wire.write(mask);
@@ -43,9 +43,9 @@ void tcaselect(uint8_t sensor) {
 
 void tcaselect1(uint8_t sensor1) { 
   unsigned int mask1 = 1 << sensor1;
-  //Wire.beginTransmission(TCAADDR);
-  //Wire.write(lowByte(mask1));
-  //Wire.endTransmission();
+  Wire.beginTransmission(TCAADDR);
+  Wire.write(lowByte(mask1));
+  Wire.endTransmission();
   Wire.beginTransmission(TCAADDR1);
   //Wire.write(highByte(mask1));
   Wire.write(mask1);
@@ -574,6 +574,6 @@ void loop()
   Serial.println(String(sen1)+","+String(sen2)+","+String(sen3)+","+String(sen4)+","+String(sen5)+","+String(sen6)+","+String(sen7)+","+String(sen8)+","+String(sen9)+","+String(sen10)+","+String(sen11)+","+String(sen12)+","+String(sen13)+","+String(sen14)+","+String(sen15)+","+String(sen16)+"," + String(inter));
   //Serial.println(String(sen1)+","+String(sen2)+","+String(sen3)+","+String(sen4)+","+String(sen9)+","+String(sen10)+","+String(sen11)+","+String(sen12));
   //Serial.println(String(sen9)+","+String(sen10)+","+String(sen11)+","+String(sen12)+String(sen13)+","+String(sen14)+","+String(sen15)+","+String(sen16));
-  delay(20);
+  delay(50);
 
 }
