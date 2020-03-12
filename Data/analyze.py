@@ -67,4 +67,4 @@ for filename in os.listdir(directory):
 
 for_strip = frames['1_2']['absplot'].stack().reset_index(-1).iloc[:, ::-1].rename(columns={0: 'value', 'level_1': 'snsr'})
 sns.swarmplot(x='snsr',y = 'value', data= for_strip, size=4)
-sns.violinplot(x='snsr',y = 'value', data= for_strip, size=4, inner = None)
+sns.boxplot(x='snsr',y = 'value', data= for_strip)
