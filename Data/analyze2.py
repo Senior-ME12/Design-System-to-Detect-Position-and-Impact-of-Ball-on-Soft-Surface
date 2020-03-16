@@ -75,9 +75,47 @@ def ExteactImpact(frame):
 
 
 frame1 = NormalizedData(RawData())
-plt.figure(0)
+plt.subplot(2,1,1)
 LinePlot(frame1,'normalized','1_1')
-plt.figure(1)
+plt.subplot(2,1,2)
 LinePlot(frame1,'raw','1_1')
+plt.tight_layout()
 
 frame2 = ExteactImpact(frame1)
+#sns.set(style="ticks", palette="pastel")
+#sns.boxplot(x="snsr", y="value",hue="type", palette=["m", "g"], data=normal['1_1']['normalized']).set_title('normalized by trimmed mean')
+
+#df = frame2['1_1']
+#df = df[(df['impact'].notna()) & (df['type'] == 'normalized')].drop(['type'], axis = 1)
+#sns.set( palette="pastel")
+##sns.lineplot(data=df, x=df.index, y='value', hue='snsr').set_title(data+ ' data at '+ position)
+#
+#sns.swarmplot(x='impact',y = 'value',hue = 'snsr', data= df, size=4)
+#plt.legend(bbox_to_anchor=(1, 1), loc=2, borderaxespad=0)
+
+
+
+columns=['snsr_11','snsr_12','snsr_13','snsr_14',
+         'snsr_21','snsr_22','snsr_23','snsr_24',
+         'snsr_31','snsr_32','snsr_33','snsr_34',
+        'snsr_41','snsr_42','snsr_43','snsr_44','middle']
+for key, value in frame2.items():
+    df = frame2[key]
+    ymin = df['value'].min()
+    ymax = df['value'].max()
+    plt.figure()
+    for i in range(16):
+        plt.subplot(4,4,i+1)
+        df1 = df[(df['impact'].notna()) & (df['type'] == 'normalized') & (df['snsr'] == columns[i])].drop(['type'], axis = 1)
+        sns.lineplot(data=df1, x=df1.index, y='value', hue='impact').set_ylim([ymin,ymax])
+        plt.xlabel('')
+        plt.ylabel('')
+        plt.legend().set_visible(False)
+    plt.suptitle(f"impact on snsr {key}", fontsize=16)
+    plt.subplots_adjust(top=0.945, bottom=0.04, left=0.04, right=0.995, hspace=0.2, wspace=0.2)
+    
+#df = frame2['1_1']
+
+    
+    
+    
