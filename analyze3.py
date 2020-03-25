@@ -138,7 +138,7 @@ if INPUT1 == 'all':
     del area,df1,df2,df3,df4,directory,filename,n,name
     
 else :
-    df1 = RawData('Tennis_ball_test/'+INPUT1+'.csv')
-    df2 = NormalData(df1,plot = PLOT)           
-    df3,n = FindImpact(df2)
-    df4,area = FilterImpact(df3, INPUT2, n, line = LINE, bar = BAR)
+    raw = RawData('Tennis_ball_test/'+INPUT1+'.csv')
+    normalized = NormalData(raw,plot = PLOT)           
+    impact,n = FindImpact(normalized)
+    impactfilter,area = FilterImpact(impact, INPUT2, n, line = LINE, bar = BAR)
