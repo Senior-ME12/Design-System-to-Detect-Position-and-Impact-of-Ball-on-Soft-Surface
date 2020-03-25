@@ -6,7 +6,7 @@ from scipy import stats
 import matplotlib.pyplot as plt
 #from  matplotlib.ticker import FuncFormatter
 
-INPUT1 = 'all' # file name or 'all'
+INPUT1 = 'all' # file name '1-1' or 'all'
 INPUT2 = 'all' # impact number 'all' or list ex. [1,2,3,5]
 PLOT = False
 LINE = False
