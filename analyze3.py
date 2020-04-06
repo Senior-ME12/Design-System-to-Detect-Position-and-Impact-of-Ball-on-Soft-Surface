@@ -5,10 +5,10 @@ import os
 from scipy import stats
 import matplotlib.pyplot as plt
 #from  matplotlib.ticker import FuncFormatter
-FOLDER = 'Tennis_ball_test_level1'
-FILE = 'all' # file name '1-1.csv' or 'all'
+FOLDER = 'Fifth_test'
+FILE = 'middel-5.csv' # file name '1-1.csv' or 'all'
 IMPACT = 'all' # impact number 'all' or list ex. [1,2,3,5]
-PLOT = False
+PLOT = True
 LINE = False
 BAR = True
 
@@ -21,6 +21,7 @@ def RawData(folder,file):
 def NormalData(raw, plot = True):
     df = raw.sub(stats.trim_mean(raw, 0.25), axis='columns')
     if plot == True:
+       plt.figure()
        PlotRN(raw,df) 
     return df
 
@@ -47,10 +48,10 @@ def FindImpact(normal):
     normal = normal.reset_index()
     c,k = 15,0
     for index, row in normal.iterrows():
-        if (row['max'] > 20.0) and (c > 15):
+        if (row['max'] > 50.0) and (c > 20):
             k += 1
             c = 0
-            normal.loc[index-2:index+14, 'impact'] = k
+            normal.loc[index-5:index+30, 'impact'] = k
         else:
             c += 1
     return normal.dropna().drop(['max'],axis=1).set_index(['time','impact']), k
@@ -95,7 +96,7 @@ def FilterImpact(normalwithimpact,impactlist,N,line = True, bar = True):
                                            'snsr_41','snsr_42','snsr_43','snsr_44'])
         for j in impactlist:
             df3 = df.query('impact == @j')
-            area = [j] + list(np.trapz(df3.abs(), axis=0))
+            area = [j] + list(np.trapz(df3.abs(), axis=0))  #df3.abs()
             area = pd.Series(area, index = dfarea.columns)
             dfarea = dfarea.append(area, ignore_index=True)
         dfarea = dfarea.set_index('impact').stack().reset_index().rename({'level_1': 'snsr_name',0:'snsr_area'}, axis=1)
@@ -119,24 +120,31 @@ def FilterImpact(normalwithimpact,impactlist,N,line = True, bar = True):
             plt.suptitle(f"Area (mm/s) on sensor {FILE.split('.')[0]} ({FOLDER})", fontsize=16)
             plt.subplots_adjust(top=0.945, bottom=0.04, left=0.04, right=0.995, hspace=0.2, wspace=0.2)
             
-           
-            plt.figure()
-            sns.set_style("whitegrid")
-            sns.barplot(data=dfareasum, x=[int(x) for x in dfareasum.index], y='snsr_area')
-            plt.xlabel('')
-            plt.ylabel('')
-    #            plt.legend().set_visible(False)
-    #            plt.yaxis.set_major_locator(MaxNLocator(integer=True))
-    #            plt.gca().xaxis.set_major_formatter(FuncFormatter(lambda x, _: int(x)))
-            plt.suptitle(f"Sum Area (mm/s) on sensor {FILE.split('.')[0]} ({FOLDER})", fontsize=16)
-            plt.subplots_adjust(top=0.945, bottom=0.04, left=0.04, right=0.995, hspace=0.2, wspace=0.2)
-            
-    #        plt.savefig(f"{key}.png", bbox_inches='tight')
+    #       
+#            plt.figure()
+#            sns.set_style("whitegrid")
+#            sns.barplot(data=dfareasum, x=[int(x) for x in dfareasum.index], y='snsr_area')
+#            plt.xlabel('')
+#            plt.ylabel('')
+#    
+#            plt.suptitle(f"Sum Area (mm/s) on sensor {FILE.split('.')[0]} ({FOLDER})", fontsize=16)
+#            plt.subplots_adjust(top=0.945, bottom=0.04, left=0.04, right=0.995, hspace=0.2, wspace=0.2)
+
     else :
         df = print('Argument error')  
         dfarea = print('Argument error')  
         dfareasum = print('Argument error')  
     return df, dfarea, dfareasum
+
+def Answer(areadf,n):
+    df = pd.DataFrame(columns=['impact','column','row'])
+    for x in range(n):
+        df1 = areadf[areadf['impact'] == x+1]['snsr_area']
+        df2 = np.reshape(df1.to_numpy(), (4, 4))
+        column = np.argmax(np.sum(df2, axis=0))+1
+        row = np.argmax(np.sum(df2, axis=1))+1
+        df = df.append({'impact': x+1, 'column':column, 'row' : row}, ignore_index=True)
+    return df
 
 if FILE == 'all':
     frames = {}
@@ -151,11 +159,13 @@ if FILE == 'all':
             df2 = NormalData(df1,plot = PLOT)           
             df3,n = FindImpact(df2)
             df4,area,areasum = FilterImpact(df3, IMPACT, n, line = LINE, bar = BAR) 
+            answer = Answer(area,n)
             frames[name]['raw'] = df1
             frames[name]['normalized'] = df2
             frames[name]['impact'] = df3
             frames[name]['area'] = area
             frames[name]['areasum'] = areasum
+            frames[name]['answer'] = answer
     locals()[FOLDER] = frames
     del area,df1,df2,df3,df4,directory,filename,n,name,frames,areasum
     
@@ -164,3 +174,4 @@ else :
     df2 = NormalData(df1,plot = PLOT)           
     df3,n = FindImpact(df2)
     df4,area,areasum = FilterImpact(df3, IMPACT, n, line = LINE, bar = BAR)
+    answer = Answer(area,n)
