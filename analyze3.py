@@ -167,7 +167,7 @@ if FILE == 'all':
             frames[name]['areasum'] = areasum
             frames[name]['answer'] = answer
     locals()[FOLDER] = frames
-    del area,df1,df2,df3,df4,directory,filename,n,name,frames,areasum
+    del area,df1,df2,df3,df4,directory,filename,n,name,frames,areasum,answer
     
 else :
     df1 = RawData(FOLDER,FILE)
