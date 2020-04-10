@@ -8,7 +8,7 @@ extern "C"
 
 #define TCAADDR 0x70
 #define TCAADDR1 0x71
-#define CLICKTHRESHHOLD 60
+#define CLICKTHRESHHOLD 10
 
 
 //TwoWire Wire2(&IMXRT_LPI2C2, TwoWire::i2c2_hardware);
@@ -67,7 +67,7 @@ void setup() {
 
   Serial.print("Range = "); Serial.print(2 << lis1.getRange());
   Serial.println("G");
-  lis1.setClick(1, CLICKTHRESHHOLD);
+  lis1.setClick(1, CLICKTHRESHHOLD, 70);
 
   //SECOND SENSOR
   tcaselect(1);
@@ -83,7 +83,7 @@ void setup() {
 
   Serial.print("Range = "); Serial.print(2 << lis2.getRange());
   Serial.println("G");
-  lis2.setClick(1, CLICKTHRESHHOLD);
+  lis2.setClick(1, CLICKTHRESHHOLD, 70);
 
   //THIRD SENSOR
   tcaselect(2);
@@ -99,7 +99,7 @@ void setup() {
 
   Serial.print("Range = "); Serial.print(2 << lis3.getRange());
   Serial.println("G");
-  lis3.setClick(1, CLICKTHRESHHOLD);
+  lis3.setClick(1, CLICKTHRESHHOLD, 70);
 
   //FOURTH SENSOR
   tcaselect(3);
@@ -115,7 +115,7 @@ void setup() {
 
   Serial.print("Range = "); Serial.print(2 << lis4.getRange());
   Serial.println("G");
-  lis4.setClick(1, CLICKTHRESHHOLD);
+  lis4.setClick(1, CLICKTHRESHHOLD, 70);
 
   //*FIFTH SENSOR
   tcaselect(4);
@@ -131,7 +131,7 @@ void setup() {
 
   Serial.print("Range = "); Serial.print(2 << lis5.getRange());
   Serial.println("G");
-  lis5.setClick(1, CLICKTHRESHHOLD);
+  lis5.setClick(1, CLICKTHRESHHOLD, 70);
 
 
   //*SIXTH SENSOR
@@ -148,7 +148,7 @@ void setup() {
 
   Serial.print("Range = "); Serial.print(2 << lis6.getRange());
   Serial.println("G");
-  lis6.setClick(1, CLICKTHRESHHOLD);
+  lis6.setClick(1, CLICKTHRESHHOLD, 70);
 
 
   //*SEVENTH SENSOR
@@ -165,7 +165,7 @@ void setup() {
 
   Serial.print("Range = "); Serial.print(2 << lis7.getRange());
   Serial.println("G");
-  lis7.setClick(1, CLICKTHRESHHOLD);
+  lis7.setClick(1, CLICKTHRESHHOLD, 70);
 
   //*EIGHTH SENSOR
   tcaselect(7);
@@ -181,7 +181,7 @@ void setup() {
 
   Serial.print("Range = "); Serial.print(2 << lis8.getRange());
   Serial.println("G");
-  lis8.setClick(1, CLICKTHRESHHOLD);
+  lis8.setClick(1, CLICKTHRESHHOLD, 70);
 
 
    //*NINETH SENSOR
@@ -198,7 +198,7 @@ void setup() {
 
   Serial.print("Range = "); Serial.print(2 << lis9.getRange());
   Serial.println("G");
-  lis9.setClick(1, CLICKTHRESHHOLD);
+  lis9.setClick(1, CLICKTHRESHHOLD, 70);
 
 
   //*TENTH SENSOR
@@ -215,7 +215,7 @@ void setup() {
 
   Serial.print("Range = "); Serial.print(2 << lis10.getRange());
   Serial.println("G");
-  lis10.setClick(1, CLICKTHRESHHOLD);
+  lis10.setClick(1, CLICKTHRESHHOLD, 70);
 
 
   //*11TH SENSOR
@@ -232,7 +232,7 @@ void setup() {
 
   Serial.print("Range = "); Serial.print(2 << lis11.getRange());
   Serial.println("G");
-  lis11.setClick(1, CLICKTHRESHHOLD);
+  lis11.setClick(1, CLICKTHRESHHOLD, 70);
 
 
   //*12TH SENSOR
@@ -249,7 +249,7 @@ void setup() {
 
   Serial.print("Range = "); Serial.print(2 << lis12.getRange());
   Serial.println("G");
-  lis12.setClick(1, CLICKTHRESHHOLD);
+  lis12.setClick(1, CLICKTHRESHHOLD, 70);
 
   //*13TH SENSOR
   tcaselect1(4);
@@ -265,7 +265,7 @@ void setup() {
 
   Serial.print("Range = "); Serial.print(2 << lis13.getRange());
   Serial.println("G");
-  lis13.setClick(1, CLICKTHRESHHOLD);
+  lis13.setClick(1, CLICKTHRESHHOLD, 70);
 
 
   //*14TH SENSOR
@@ -282,7 +282,7 @@ void setup() {
 
   Serial.print("Range = "); Serial.print(2 << lis14.getRange());
   Serial.println("G");
-  lis14.setClick(1, CLICKTHRESHHOLD);
+  lis14.setClick(1, CLICKTHRESHHOLD, 70);
 
 
   //*15TH SENSOR
@@ -299,7 +299,7 @@ void setup() {
 
   Serial.print("Range = "); Serial.print(2 << lis15.getRange());
   Serial.println("G");
-  lis15.setClick(1, CLICKTHRESHHOLD);
+  lis15.setClick(1, CLICKTHRESHHOLD, 70);
 
 
   //*16TH SENSOR
@@ -316,7 +316,7 @@ void setup() {
 
   Serial.print("Range = "); Serial.print(2 << lis16.getRange());
   Serial.println("G");
-  lis16.setClick(1, CLICKTHRESHHOLD);
+  lis16.setClick(1, CLICKTHRESHHOLD, 70);
 
 }
 
@@ -331,7 +331,6 @@ void loop()
 
   //*SENSOR-FIRST
   tcaselect(0);          // Get a new sensor event
-  lis1.read();      // get X Y and Z data at once
   click = lis1.getClick();
   if (click & 0x10) {
     inter = 1;
@@ -345,7 +344,6 @@ void loop()
 
   //*SENSOR-SECOND
   tcaselect(1);          // Get a new sensor event
-  lis2.read();      // get X Y and Z data at once
   click = lis2.getClick();
   if (click & 0x10) {
     inter = 1;
@@ -360,7 +358,6 @@ void loop()
 
   //**SENSOR-THIRD
   tcaselect(2);          // Get a new sensor event
-  lis3.read();      // get X Y and Z data at once
   click = lis3.getClick();
   if (click & 0x10) {
     inter = 1;
@@ -375,7 +372,6 @@ void loop()
 
   //*SENSOR-FOURTH
   tcaselect(3);          // Get a new sensor event
-  lis4.read();      // get X Y and Z data at once
   click = lis4.getClick();
   if (click & 0x10) {
     inter = 1;
@@ -390,7 +386,6 @@ void loop()
 
   //*SENSOR-FIFTH
   tcaselect(4);          // Get a new sensor event
-  lis5.read();      // get X Y and Z data at once
   click = lis5.getClick();
   if (click & 0x10) {
     inter = 1;
@@ -404,7 +399,6 @@ void loop()
 
   //*SENSOR-SIXTH
   tcaselect(5);          // Get a new sensor event
-  lis6.read();      // get X Y and Z data at once
   click = lis6.getClick();
   if (click & 0x10) {
     inter = 1;
@@ -418,7 +412,6 @@ void loop()
 
   //*SENSOR-SEVENTH
   tcaselect(6);          // Get a new sensor event
-  lis7.read();      // get X Y and Z data at once
   click = lis7.getClick();
   if (click & 0x10) {
     inter = 1;
@@ -432,7 +425,6 @@ void loop()
 
   //*SENSOR-8TH
   tcaselect(7);          // Get a new sensor event
-  lis8.read();      // get X Y and Z data at once
   click = lis8.getClick();
   if (click & 0x10) {
     inter = 1;
@@ -448,7 +440,6 @@ void loop()
 
   //*SENSOR-9TH
   tcaselect1(0);
-  lis9.read();      // get X Y and Z data at once
   click = lis9.getClick();
   if (click & 0x10) {
     inter = 1;
@@ -462,7 +453,6 @@ void loop()
 
   //*SENSOR-10TH
   tcaselect1(1);
-  lis10.read();      // get X Y and Z data at once
   click = lis10.getClick();
   if (click & 0x10) {
     inter = 1;
@@ -476,7 +466,6 @@ void loop()
 
   //*SENSOR-11TH
   tcaselect1(2);
-  lis11.read();      // get X Y and Z data at once
   click = lis11.getClick();
   if (click & 0x10) {
     inter = 1;
@@ -490,7 +479,6 @@ void loop()
 
   //*SENSOR-12TH
   tcaselect1(3);
-  lis12.read();      // get X Y and Z data at once
   click = lis12.getClick();
   if (click & 0x10) {
     inter = 1;
@@ -504,7 +492,6 @@ void loop()
 
   //*SENSOR-13TH
   tcaselect1(4);
-  lis13.read();      // get X Y and Z data at once
   click = lis13.getClick();
   if (click & 0x10) {
     inter = 1;
@@ -518,7 +505,6 @@ void loop()
 
   //*SENSOR-14TH
   tcaselect1(5);
-  lis14.read();      // get X Y and Z data at once
   click = lis14.getClick();
   if (click & 0x10) {
     inter = 1;
@@ -532,7 +518,6 @@ void loop()
 
   //*SENSOR-15TH
   tcaselect1(6);
-  lis15.read();      // get X Y and Z data at once
   click = lis16.getClick();
   if (click & 0x10) {
     inter = 1;
@@ -546,7 +531,6 @@ void loop()
 
   //*SENSOR-16TH
   tcaselect1(7);
-  lis16.read();      // get X Y and Z data at once
   click = lis16.getClick();
   if (click & 0x10) {
     inter = 1;
@@ -558,10 +542,10 @@ void loop()
   lis16.getEvent(&event16);
   sen16 = event16.acceleration.z;
 
-  //Serial.println(String(tstamp)+","+String(sen1)+","+String(sen2)+","+String(sen3)+","+String(sen4)+","+String(sen5)+","+String(sen6)+","+String(sen7)+","+String(sen8)+","+String(sen9)+","+String(sen10)+","+String(sen11)+","+String(sen12)+","+String(sen13)+","+String(sen14)+","+String(sen15)+","+String(sen16)+"," + String(inter));
-  Serial.println(String(sen1) + "," + String(sen2) + "," + String(sen3) + "," + String(sen4) + "," + String(sen5) + "," + String(sen6) + "," + String(sen7) + "," + String(sen8) + "," + String(sen9) + "," + String(sen10) + "," + String(sen11) + "," + String(sen12) + "," + String(sen13) + "," + String(sen14) + "," + String(sen15) + "," + String(sen16) + "," + String(inter));
+  Serial.println(String(tstamp)+","+String(sen1)+","+String(sen2)+","+String(sen3)+","+String(sen4)+","+String(sen5)+","+String(sen6)+","+String(sen7)+","+String(sen8)+","+String(sen9)+","+String(sen10)+","+String(sen11)+","+String(sen12)+","+String(sen13)+","+String(sen14)+","+String(sen15)+","+String(sen16)+"," + String(inter));
+  //Serial.println(String(sen1) + "," + String(sen2) + "," + String(sen3) + "," + String(sen4) + "," + String(sen5) + "," + String(sen6) + "," + String(sen7) + "," + String(sen8) + "," + String(sen9) + "," + String(sen10) + "," + String(sen11) + "," + String(sen12) + "," + String(sen13) + "," + String(sen14) + "," + String(sen15) + "," + String(sen16) + "," + String(inter));
   //Serial.println(String(sen1)+","+String(sen2)+","+String(sen3)+","+String(sen4)+","+String(sen9)+","+String(sen10)+","+String(sen11)+","+String(sen12));
   //Serial.println(String(sen9)+","+String(sen10)+","+String(sen11)+","+String(sen12)+String(sen13)+","+String(sen14)+","+String(sen15)+","+String(sen16));
-  delay(50);
+  delay(1);
 
 }
